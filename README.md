@@ -5,4 +5,4 @@ plupload has a UI based on Jquery UI <a href="http://plupload.com/example_jquery
 
 But if we use Bootstrap instead of Jqery UI? So I have made this [Bootstrap UI for plupload](https://github.com/leedorian/pupload-bootstrap)
 
-Because we are using Jquery 2, supported browsers are same as [Jquery 2](http://jquery.com/browser-support/)
+Because we are using Jquery2, supported browsers are same as [Jquery2's browser support](http://jquery.com/browser-support/)
