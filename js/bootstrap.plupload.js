@@ -125,31 +125,6 @@
 		this.thumbs_switcher = $('#' + id + '_view_thumbs');
 		this.list_switcher = $('#' + id + '_view_list');
 		
-		/*if ($.ui.button) {
-			this.browse_button.button({
-				icons: { primary: 'ui-icon-circle-plus' },
-				disabled: true
-			});
-			
-			this.start_button.button({
-				icons: { primary: 'ui-icon-circle-arrow-e' },
-				disabled: true
-			});
-			
-			this.stop_button.button({
-				icons: { primary: 'ui-icon-circle-close' }
-			});
-      
-			this.list_switcher.button({
-				text: false,
-				icons: { secondary: "ui-icon-grip-dotted-horizontal" }
-			});
-
-			this.thumbs_switcher.button({
-				text: false,
-				icons: { secondary: "ui-icon-image" }
-			});
-		}*/
         this.browse_button.addClass("disabled");
 
         this.start_button.addClass("disabled");
@@ -648,30 +623,13 @@
 
 		// unbind all button events
 		$('.plupload_button', this.element).unbind();
-		
-		// destroy buttons
-		/*if ($.ui.button) {
-			$('.plupload_add, .plupload_start, .plupload_stop', this.container)
-				.button('destroy');
-		}*/
-		
-		// destroy progressbar
-		/*if ($.ui.progressbar) {
-			this.progressbar.progressbar('destroy');	
-		}*/
-		
-		// destroy sortable behavior
-		/*if ($.ui.sortable && this.options.sortable) {
-			$('tbody', this.filelist).sortable('destroy');
-		}*/
-		
+			
 		// restore the elements initial state
 		this.element
 			.empty()
 			.html(this.contents_bak);
 		this.contents_bak = '';
 
-		//$.Widget.prototype.destroy.apply(this);
 	}
     
     BSpupload.prototype._handleState = function() {
@@ -805,7 +763,6 @@
 		// Scroll to end of file list
 		this.filelist[0].scrollTop = this.filelist[0].scrollHeight;
 		var uppercent = up.total.percent+"%";
-		//this.progressbar.progressup.total.percent+"%"bar('value', up.total.percent);
 		this.progressbar.find(".progress-bar").addClass("progress-bar-warning").attr("aria-valuenow",up.total.percent).width(uppercent);
 		this.progressbar.find(".sr-only").html(uppercent);
 		this.element
@@ -883,11 +840,11 @@
 
 			/*if ($.fn.resizable) {
 				onLast(self.container, 'resize', mpl);
-			}
+			}*/
 
-			onLast(self.window, 'resize', mpl);
+			onLast($(window), 'resize', mpl);
 			onLast(self.content, 'scroll',  mpl);
-            */
+            
 			self.element.on('viewchanged selected', mpl);
                 
 			mpl();
@@ -1204,21 +1161,4 @@
           Plugin.call($bsupload, option)
         })
     });
-    /*$(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
-        var $this   = $(this)
-        var href    = $this.attr('href')
-        var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) // strip for ie7
-        var option  = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
-
-        if ($this.is('a')) e.preventDefault()
-
-        $target.one('show.bs.modal', function (showEvent) {
-          if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
-          $target.one('hidden.bs.modal', function () {
-            $this.is(':visible') && $this.trigger('focus')
-          })
-        })
-        Plugin.call($target, option, this)
-    })*/
-
 }(jQuery);
