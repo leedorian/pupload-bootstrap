@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+<title>Plupload - Bootstrap UI</title>
+<link rel='stylesheet' href='bootstrap-3.2.0/css/bootstrap.min.css' />
+<link rel='stylesheet' href='bootstrap-3.2.0/css/bootstrap-theme.min.css' />
+<link rel="stylesheet" href="css/bootstrap.plupload.css" type="text/css" />
+
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="bootstrap-3.2.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="plupload-2.1.2/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.plupload.js"></script>
+
+
+</head>
+<body style="font: 13px Verdana; background: #eee; color: #333">
+
+<h1>Bootstrap UI for plupload</h1>
+
+<p>plupload has a UI based on Jquery UI <a href="http://plupload.com/example_jquery_ui.php">http://plupload.com/example_jquery_ui.php</a></p>
+<p>But if we use Bootstrap instead of Jqery UI? So I have made this <a href="">Bootstrap UI for plupload</a></p>
+
+<form method="post" action="plupload-2.1.2/examples/dump.php"
+ enctype="multipart/form-data">
+<div id="uploader">
+    <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+</div>
+<br />
+<input type="submit" value="Submit" />
+    
+</form>
+
+<div id="uploader1" 
+     data-toggle="bsupload"
+     data-url="plupload-2.1.2/examples/upload.php" 
+     data-multipart_params='{"token": "xxxxx","param1":"param1Val","param2":"param2Val"}'
+     data-max_file_count="20"
+     data-max_file_size="10mb"
+     data-filters='{"max_file_size" : "1000mb","mime_types": [
+				{"title" : "Image files", "extensions" : "jpg,gif,png"},
+				{"title" : "Zip files", "extensions" : "zip"}
+			]
+		}'
+     data-rename="true"
+     data-dragdrop="true"
+     data-views='{
+			"list": true,
+			"thumbs": true,
+			"active": "thumbs"
+		}'
+     data-flash_swf_url="plupload-2.1.2/js/Moxie.swf"
+     silverlight_xap_url="plupload-2.1.2/js/Moxie.xap"
+     >
+    <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+</div>
+<script type="text/javascript">
+// Initialize the widget when the DOM is ready
+$(function() {
+    $("#uploader").bsupload({
+		// General settings
+		runtimes : 'html5,flash,silverlight,html4',
+		url : 'plupload-2.1.2/examples/upload.php',
+        multipart_params: {
+            token: 'xxxxx',
+            param1:'param1Val',
+            param2:'param2Val'
+        },
+		// User can upload no more then 20 files in one go (sets multiple_queues to false)
+		max_file_count: 20,
+        // Maximum file size
+        max_file_size : '10mb',
+		// Resize images on clientside if we can
+		resize : {
+			width : 200, 
+			height : 200, 
+			quality : 90,
+			crop: true // crop to exact dimensions
+		},
+		
+		filters : {
+			// Maximum file size
+			max_file_size : '1000mb',
+			// Specify what files to browse for
+			mime_types: [
+				{title : "Image files", extensions : "jpg,gif,png"},
+				{title : "Zip files", extensions : "zip"}
+			]
+		},
+		// Rename files by clicking on their titles
+		rename: true,
+
+		// Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+		dragdrop: true,
+
+		// Views to activate
+		views: {
+			list: true,
+			thumbs: true, // Show thumbs
+			active: 'thumbs'
+		},
+		// Flash settings
+		flash_swf_url : 'plupload-2.1.2/js/Moxie.swf',
+
+		// Silverlight settings
+		silverlight_xap_url : 'plupload-2.1.2/js/Moxie.xap',
+	}).on("beforeupload",function(event, args) {
+        console.info("before upload");
+    }).on("complete",function(event, args) {
+       console.info("complete");
+    }).on("removed",function(event, args) {
+       console.info("removed");
+    }).on("uploaded",function(event, args) {
+       console.info("uploaded");
+    });
+    
+
+	// Handle the case when form was submitted before uploading has finished
+	$('#form').submit(function(e) {
+		// Files in queue upload them first
+		if ($('#uploader').plupload('getFiles').length > 0) {
+
+			// When all files are uploaded submit form
+			$('#uploader').on('complete', function() {
+				$('#form')[0].submit();
+			});
+
+			$('#uploader').plupload('start');
+		} else {
+			alert("You must have at least one file in the queue.");
+		}
+		return false; // Keep the form from submitting
+	});
+    
+    
+    $("#uploader1").on("beforeupload",function(event, args) {
+        console.info("before upload");
+    }).on("complete",function(event, args) {
+       console.info("complete");
+    }).on("removed",function(event, args) {
+       console.info("removed");
+    }).on("uploaded",function(event, args) {
+       console.info("uploaded");
+    });
+
+});
+</script>
+</body>
+</html>
